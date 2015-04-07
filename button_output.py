@@ -16,11 +16,12 @@ class ButtonPush():
         GPIO.setup(4, GPIO.OUT, initial=GPIO.LOW)
 
     def toggle_out(self, channel):
+        self.report_out(self.out_channel)
         GPIO.output(channel, not GPIO.input(channel))
 
     def report_out(self, channel):
         state = GPIO.input(channel)
-        print("State of channel " + str(channel) + " is " + str(state) + ".")
+        print("State of channel " + str(channel) + " : " + str(state) + ".")
     
     def get_out(self, channel):
         state = GPIO.input(channel)
@@ -53,6 +54,7 @@ if __name__ == '__main__':
         main()
     except KeyboardInterrupt:
         print("\nInterrupted")
+        GPIO.cleanup( [4, 24] )
         try:
             sys.exit(0)
         except SystemExit:
